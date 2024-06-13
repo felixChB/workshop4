@@ -2,8 +2,9 @@ import { Canvas } from "./canvas.js";
 
 // websocket parameters
 const webSocketPort = 3000;
-//const webSocketAddr = '192.168.0.169';
-const webSocketAddr = '10.136.3.243';
+//const webSocketAddr = '192.168.0.169'; //Felix Together IP
+const webSocketAddr = '10.136.1.73'; //Felix Stud IP
+//const webSocketAddr = '10.136.3.243'; //Max Stud IP
 //const webSocketAddr = window.location.host;
 
 // create full screen canvas to draw to
