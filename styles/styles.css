@@ -233,6 +233,21 @@ body {
   z-index: 10;
 }
 
+#diffuse-wrapper-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+#diffuse-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: 10px;
+  z-index: 1;
+}
+
 .diffuse-bar-fill {
   background-color: green;
   animation: progressBar 3s ease-in-out infinite;
@@ -240,7 +255,7 @@ body {
 
 @keyframes progressBar {
   0% { width: 0%; background-color: #4c4c4c; }
-  100% { width: 30%; background-color: green;}
+  100% { width: 100%; background-color: green;}
 }
 
 .diffuse-bar div{
@@ -250,6 +265,15 @@ body {
 
 #diffuse-counter {
   font-size: 2em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
 }
 
 .no-diffuses-left {

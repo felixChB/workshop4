@@ -19,7 +19,7 @@
   animation-duration: 10s;
 }
 
-.head-copy {
+#head-copy {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -27,9 +27,56 @@
   border-radius: 50%;
   z-index: 2;
   box-shadow: 0px 0px 10px #00000071;
-  animation-name: colorchange, supersize;
+  /* animation-name: colorchange, supersize;
   animation-duration: 7s;
-  animation-timing-function: ease;
+  animation-timing-function: ease; */
+  transition: all 1s ease;
+  transform: scale(1);
+}
+
+.head-anim-10 {
+  transform: scale(1.5) !important;
+  background: #232729 !important;
+}
+.head-anim-9 {
+  transform: scale(2) !important;
+  background: #4e1111 !important;
+}
+.head-anim-8 {
+  transform: scale(2.5) !important;
+  background: #5c1010 !important;
+}
+.head-anim-7 {
+  transform: scale(3) !important;
+  background: #6b0e0e !important;
+}
+.head-anim-6 {
+  transform: scale(3.5) !important;
+  background: #7a0c0c !important;
+}
+.head-anim-5 {
+  transform: scale(4) !important;
+  background: #890a0a !important;
+}
+.head-anim-4 {
+  transform: scale(4.5) !important;
+  background: #980808 !important;
+}
+.head-anim-3 {
+  transform: scale(5) !important;
+  background: #a80606 !important;
+}
+.head-anim-2 {
+  transform: scale(5.5) !important;
+  background: #b60404 !important;
+}
+.head-anim-1 {
+  transform: scale(6) !important;
+  background: #c50202 !important;
+}
+.head-anim-0 {
+  transform: scale(6.5) !important;
+  background: #d60000 !important;
 }
 
 .eye-left {
@@ -152,9 +199,6 @@
   border-radius: 10px;
   z-index: 1;
   box-shadow: 0px 0px 10px #00000071;
-  animation-name: fuse-burn;
-  animation-duration: 7s;
-  animation-timing-function: ease;
 }
 
 .fuse2 {
@@ -443,21 +487,6 @@
 
   100% {
     transform: scale(10)
-  }
-
-}
-
-@keyframes fuse-burn {
-  0% {
-    transform: scale(1)
-  }
-
-  50% {
-    transform: scale(0.5)
-  }
-
-  100% {
-    transform: scale(0.3)
   }
 
 }

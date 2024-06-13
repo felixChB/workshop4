@@ -102,6 +102,12 @@ socket.addEventListener('message', (event) => {
   }
 });
 
+document.addEventListener("keydown", (event) => {
+  if (event.key == 'r') {
+    requestReset();
+  }
+});
+
 /********************************************************************
  *  start screen (overlay)
  */
@@ -261,41 +267,11 @@ function updateDiffuseInterval() {
 }
 
 function triggerBombHalftime(thisBombCount) {
-  switch (thisBombCount) {
-    case 10:
 
-      break;
-    case 9:
-
-      break;
-    case 8:
-
-      break;
-    case 7:
-
-      break;
-    case 6:
-
-      break;
-    case 5:
-
-      break;
-    case 4:
-
-      break;
-    case 3:
-
-      break;
-    case 2:
-
-      break;
-    case 1:
-
-      break;
-    case 0:
-
-      break;
-    default:
-      break;
+  if (thisBombCount <= 10) {
+    const bombHeadElem = document.getElementById("head-copy");
+    bombHeadElem.className = '';
+    bombHeadElem.classList.add("head-anim-" + thisBombCount);
+    console.log("added class" + thisBombCount);
   }
 }
