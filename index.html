@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="de">
+
+<head>
+  <title>CoPaint | Painter</title>
+  <meta charset="utf-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <link rel="stylesheet" href="./styles/styles.css">
+  <link rel="stylesheet" href="./styles/bomb.css">
+  <script language="JavaScript" type="module" src="client.js" defer></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div id="start-screen">
+    <h1>CoCount</h1>
+    <p></p>
+  </div>
+
+  <div class="header">
+    <div class="header-wrapper">
+      <div id="playerCount"></div>
+      <div id="highscoreCount"></div>
+    </div>
+  </div>
+
+  <div class="background-bomb">
+    <div class="box">
+      <div class="head">
+        <div class="head-copy"></div>
+        <div class="eye-left">
+          <div class="pupil">
+            <div class="eye-color">
+            </div>
+          </div>
+        </div>
+        <div class="eye-right">
+          <div class="pupil">
+            <div class="eye-color">
+            </div>
+          </div>
+        </div>
+        <div class="eye-brows">
+        </div>
+        <div class="shine">
+          <div class="shine">
+          </div>
+        </div>
+        <div class="fuse">
+          <div class="fuse2">
+          </div>
+        </div>
+        <div class="blob"></div>
+        <div class="nose">
+          <div class="nose2">
+          </div>
+        </div>
+        <div class="hand-left">
+          <div class="hand-left2"></div>
+          <div class="hand-left3"></div>
+        </div>
+        <div class="hand-right">
+          <div class="hand-right2"></div>
+          <div class="hand-right3"></div>
+        </div>
+        <div class="counter">
+          <div id="bombCount"></div>
+        </div>
+        <!-- <div class="gif"><img src="./imgs/3iCN.gif"></div> -->
+      </div>
+    </div>
+  </div>
+
+  <div id="waiting-message"><span>Waiting for another Player</span></div>
+
+  <div id="gameover-screen">
+    <div class="gameover-wrapper">
+      <div id="gameover-reason"></div>
+      <div id="gameover-score"></div>
+      <div id="reset-button">Restart</div>
+    </div>
+  </div>
+</body>
+
+</html>
