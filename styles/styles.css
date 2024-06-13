@@ -141,6 +141,10 @@ body {
   font-size: 3.8em;
 }
 
+.bomb-max {
+  color: rgb(30, 141, 0) !important;
+}
+
 #gameover-screen {
   position: absolute;
   top: 0;

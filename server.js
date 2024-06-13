@@ -5,6 +5,7 @@ import http from 'http';
 
 let highscoreCount = 0;
 let isPlaying = false;
+let isGameOver = false;
 const maxBombCount = 20;
 let bombCounter = maxBombCount;
 var myIntervalID = 0;
@@ -72,9 +73,13 @@ webSocketServer.on('connection', (socket, req) => {
     console.log("PlayerCounter: " + clientSockets.size);
 
     if (clientSockets.size >= 2) {
-      isPlaying = true;
-      console.log("Start Game!");
-      myIntervalID = setInterval(updateInInterval, 1000);
+      if (isGameOver == false) {
+        if (isPlaying == false) {
+          console.log("Start Game!");
+          myIntervalID = setInterval(updateInInterval, 1000);
+          isPlaying = true;
+        }
+      }
     }
 
     // send
@@ -113,11 +118,19 @@ webSocketServer.on('connection', (socket, req) => {
 
 function sendInfoToClient(client = null) {
   //console.log("send info");
+  let isMax = false;
+  if (bombCounter == maxBombCount) {
+    isMax = true;
+  } else {
+    isMax = false;
+  }
+
   const messageObj = {
     selector: 'info',
     counter: bombCounter,
     highscore: highscoreCount,
-    playerCount: clientSockets.size.toString()
+    playerCount: clientSockets.size.toString(),
+    isMax: isMax
   };
 
   const str = JSON.stringify(messageObj);
@@ -148,8 +161,6 @@ function checkIncomingClicks(client) {
 
   lastClickTime = clickTime;
   lastClickingClient = client;
-
-  //console.log(`first click till start of server ${timeAction - timeStart} milliseconds.`);
 }
 
 function updateInInterval() {
@@ -167,6 +178,7 @@ function updateInInterval() {
 function gameOver(reason) {
   console.log("Game Over with Reason: " + reason);
   isPlaying = false;
+  isGameOver = true;
   clearInterval(myIntervalID);
   myIntervalID = 0;
 
@@ -189,7 +201,9 @@ function resetGame() {
   //reset variables
   highscoreCount = 0;
   isPlaying = false;
+  isGameOver = false;
   bombCounter = maxBombCount;
+  clearInterval(myIntervalID);
   myIntervalID = 0;
 
   lastClickTime = -Infinity;

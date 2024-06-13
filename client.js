@@ -23,7 +23,8 @@ const gameRestartElem = document.getElementById("reset-button");
 const diffuseCountElem = document.getElementById("diffuse-counter");
 
 // Anzahl diffuses für jeden Spieler
-const maxDiffuses = 4;
+const maxDiffuses = 3;
+const diffuseRefillTime = 3000;
 let diffuseCount = maxDiffuses;
 var clientIntervalID = 0;
 let isIntervalRunning = false;
@@ -61,6 +62,14 @@ socket.addEventListener('message', (event) => {
         } else {
           countElem.innerHTML = "00:" + incoming.counter;
         }
+
+        if (incoming.isMax == true) {
+          countElem.classList.add("bomb-max");
+        } else if (incoming.isMax == false) {
+          countElem.classList.remove("bomb-max");
+        }
+
+        triggerBombHalftime(incoming.counter);
 
         highscoreElem.innerHTML = "Score: " + incoming.highscore;
         playerCountElem.innerHTML = "Playercount: " + incoming.playerCount;
@@ -189,7 +198,7 @@ function clientClick(e) {
 
     if (isIntervalRunning == false) {
       console.log("interval starts running");
-      clientIntervalID = setInterval(updateDiffuseInterval, 3000);
+      clientIntervalID = setInterval(updateDiffuseInterval, diffuseRefillTime);
       isIntervalRunning = true;
     }
 
@@ -205,7 +214,7 @@ function clientClick(e) {
     setTimeout(() => {
       diffuseCountElem.classList.remove("no-diffuses-left");
     }, 200);
-    
+
   }
 }
 
@@ -249,4 +258,44 @@ function updateDiffuseInterval() {
   }
 
   diffuseCountElem.innerHTML = "Diffuses left: " + diffuseCount;
+}
+
+function triggerBombHalftime(thisBombCount) {
+  switch (thisBombCount) {
+    case 10:
+
+      break;
+    case 9:
+
+      break;
+    case 8:
+
+      break;
+    case 7:
+
+      break;
+    case 6:
+
+      break;
+    case 5:
+
+      break;
+    case 4:
+
+      break;
+    case 3:
+
+      break;
+    case 2:
+
+      break;
+    case 1:
+
+      break;
+    case 0:
+
+      break;
+    default:
+      break;
+  }
 }
