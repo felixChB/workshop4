@@ -19,6 +19,13 @@ const gameoverElem = document.getElementById("gameover-screen");
 const gameoverScoreElem = document.getElementById("gameover-score");
 const gameoverReasonElem = document.getElementById("gameover-reason");
 const gameRestartElem = document.getElementById("reset-button");
+const diffuseCountElem = document.getElementById("diffuse-counter");
+
+// Anzahl diffuses für jeden Spieler
+const maxDiffuses = 4;
+let diffuseCount = maxDiffuses;
+var clientIntervalID = 0;
+let isIntervalRunning = false;
 
 /****************************************************************
  * websocket communication
@@ -35,6 +42,8 @@ socket.addEventListener('open', (event) => {
     }
   }, 20000);
 });
+
+diffuseCountElem.innerHTML = "Diffuses left: " + diffuseCount;
 
 // listen to messages from server
 socket.addEventListener('message', (event) => {
@@ -55,6 +64,9 @@ socket.addEventListener('message', (event) => {
         highscoreElem.innerHTML = "Score: " + incoming.highscore;
         playerCountElem.innerHTML = "Playercount: " + incoming.playerCount;
         gameoverScoreElem.innerHTML = "Your Score: " + incoming.highscore;
+
+        // show diffuse count when updating all values
+        //diffuseCountElem.innerHTML = "Diffuses left: " + diffuseCount;
 
         if (incoming.playerCount < 2) {
           waitingElem.classList.add("show-waiting");
@@ -164,13 +176,36 @@ function listenForMousePointer() {
 }
 
 function clientClick(e) {
-  // create click message
-  const countOut = {
-    selector: 'clientClick'
-  };
-  // click message to server
-  const str = JSON.stringify(countOut);
-  socket.send(str);
+
+  console.log("interval running:" + isIntervalRunning);
+
+  // check diffuses
+  if (diffuseCount > 0) {
+
+    diffuseCount--;
+
+    diffuseCountElem.innerHTML = "Diffuses left: " + diffuseCount;
+
+    if (isIntervalRunning == false) {
+      console.log("interval starts running");
+      clientIntervalID = setInterval(updateDiffuseInterval, 3000);
+      isIntervalRunning = true;
+    }
+
+    // create click message
+    const countOut = {
+      selector: 'clientClick'
+    };
+    // click message to server
+    const str = JSON.stringify(countOut);
+    socket.send(str);
+  } else if (diffuseCount == 0) {
+    diffuseCountElem.classList.add("no-diffuses-left");
+    setTimeout(() => {
+      diffuseCountElem.classList.remove("no-diffuses-left");
+    }, 200);
+    
+  }
 }
 
 function onGameOver(reason) {
@@ -198,4 +233,19 @@ function requestReset() {
   // send paint stroke to server
   const str = JSON.stringify(countOut);
   socket.send(str);
+}
+
+function updateDiffuseInterval() {
+  console.log("updating interval function");
+  diffuseCount++;
+
+  if (diffuseCount >= maxDiffuses) {
+    diffuseCount = maxDiffuses;
+    clearInterval(clientIntervalID);
+    clientIntervalID = 0;
+    console.log("interval stopped");
+    isIntervalRunning = false;
+  }
+
+  diffuseCountElem.innerHTML = "Diffuses left: " + diffuseCount;
 }

@@ -51,6 +51,12 @@ body {
   justify-content: space-between;
 }
 
+.header-wrapper div {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  padding: 10px;
+}
+
 .background-bomb {
   position: absolute;
   top: calc(50% - 140px);
@@ -169,7 +175,7 @@ body {
 
 #waiting-message {
   position: absolute;
-  bottom: 30px;
+  top: 50%;
   left: calc(50% - 35% - 15px);
   width: 70%;
   height: fit-content;
@@ -177,14 +183,35 @@ body {
   background-color: white;
   border-radius: 10px;
   text-align: center;
-  padding: 10px;
+  padding: 20px;
   opacity: 0%;
   visibility: hidden;
+  font-size: 2em;
 }
 
 .show-waiting {
   opacity: 100% !important;
   visibility: visible !important;
+}
+
+#diffuse-wrapper {
+  position: absolute;
+  bottom: 0;
+  left: calc(50% - 15%);
+  width: 30%;
+  height: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  padding: 10px;
+  z-index: 10;
+}
+
+#diffuse-counter {
+  font-size: 2em;
+}
+
+.no-diffuses-left {
+  color:rgb(188, 0, 0);
 }
 
 @media only screen and (min-width: 700px) {

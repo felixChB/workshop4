@@ -5,7 +5,8 @@ import http from 'http';
 
 let highscoreCount = 0;
 let isPlaying = false;
-let bombCounter = 20;
+const maxBombCount = 20;
+let bombCounter = maxBombCount;
 var myIntervalID = 0;
 
 let lastClickTime = -Infinity;
@@ -95,8 +96,8 @@ webSocketServer.on('connection', (socket, req) => {
         case 'clientClick':
           checkIncomingClicks(socket);
           bombCounter += 2;
-          if (bombCounter >= 20) {
-            bombCounter = 20;
+          if (bombCounter >= maxBombCount) {
+            bombCounter = maxBombCount;
           }
           sendInfoToClient();
 
@@ -188,7 +189,7 @@ function resetGame() {
   //reset variables
   highscoreCount = 0;
   isPlaying = false;
-  bombCounter = 20;
+  bombCounter = maxBombCount;
   myIntervalID = 0;
 
   lastClickTime = -Infinity;
