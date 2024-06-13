@@ -81,7 +81,29 @@ body {
   width: 100%;
   padding: 0.5em 1em;
   text-align: center;
-  font-size: 1.666em;
+  font-size: 5em;
+}
+
+#start-screen h2 {
+  position: absolute;
+  box-sizing: border-box;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  padding: 0.5em 1em;
+  text-align: center;
+  font-size: 2em;
+}
+
+#start-screen .rules {
+  display: flex;
+  margin-top: 50%;
+  left: 50%;
+  top: 0%;
+  width: 100%;
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 2em;
 }
 
 #start-screen p {
@@ -92,13 +114,15 @@ body {
   width: 100%;
   padding: 0.5em 2em;
   text-align: center;
-  font-size: 1em;
+  font-size: 2.5em;
 }
+
 
 #start-screen p.error {
   color: #f00;
   font-style: italic;
 }
+
 
 #bombCount {
   display: flex;
