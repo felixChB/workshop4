@@ -21,6 +21,7 @@ const gameoverScoreElem = document.getElementById("gameover-score");
 const gameoverReasonElem = document.getElementById("gameover-reason");
 const gameRestartElem = document.getElementById("reset-button");
 const diffuseCountElem = document.getElementById("diffuse-counter");
+const diffuseBarElem = document.getElementById("diffuse-bar");
 
 // Anzahl diffuses für jeden Spieler
 const maxDiffuses = 3;
@@ -86,6 +87,17 @@ socket.addEventListener('message', (event) => {
 
         break;
 
+      case 'bombSound':
+        if (incoming.whichSound == "tick") {
+          var audio = new Audio('./sounds/clock-sound.mp3');
+          audio.play();
+        } else if (incoming.whichSound == "explosion") {
+          var audio = new Audio('./sounds/explosion-sound.mp3');
+          audio.play();
+        }
+
+        break;
+
       case 'gameOver':
         onGameOver(incoming.reason);
 
@@ -116,7 +128,6 @@ const startScreenDiv = document.getElementById("start-screen");
 const startScreenTextDiv = startScreenDiv.querySelector("p");
 
 // open start screen
-startScreenDiv.style.display = "block";
 setOverlayText("touch screen to start");
 
 // start after touch
@@ -126,6 +137,15 @@ startScreenDiv.addEventListener("mouseup", onStartScreenClick);
 function onStartScreenClick() {
   startScreenDiv.removeEventListener("touchend", onStartScreenClick);
   startScreenDiv.removeEventListener("mouseup", onStartScreenClick);
+
+  console.log("player starts game screen");
+  // send reset befehl to server if one player clicks the restart button
+  const messageOut = {
+    selector: 'startGameScreen'
+  };
+  // send paint stroke to server
+  const str = JSON.stringify(messageOut);
+  socket.send(str);
 
   if (matchMedia('(hover:hover)').matches) {
     listenForMousePointer();
@@ -183,12 +203,16 @@ function listenForTouch() {
   // window.addEventListener('touchend', onPointerEnd, false);
   // window.addEventListener('touchcancel', onPointerEnd, false);
 
-  window.addEventListener('touchend', clientClick);
+  setTimeout(() => {
+    window.addEventListener('touchend', clientClick);
+  }, 100);
 }
 
 // mouse pointer listener
 function listenForMousePointer() {
-  window.addEventListener('click', clientClick);
+  setTimeout(() => {
+    window.addEventListener('click', clientClick);
+  }, 100);
 }
 
 function clientClick(e) {
@@ -204,6 +228,9 @@ function clientClick(e) {
 
     if (isIntervalRunning == false) {
       console.log("interval starts running");
+      if (diffuseBarElem.classList != "diffuse-bar-fill") {
+        diffuseBarElem.classList.add("diffuse-bar-fill");
+      }
       clientIntervalID = setInterval(updateDiffuseInterval, diffuseRefillTime);
       isIntervalRunning = true;
     }
@@ -261,6 +288,8 @@ function updateDiffuseInterval() {
     clientIntervalID = 0;
     console.log("interval stopped");
     isIntervalRunning = false;
+
+    diffuseBarElem.classList.remove("diffuse-bar-fill");
   }
 
   diffuseCountElem.innerHTML = "Diffuses left: " + diffuseCount;

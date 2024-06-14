@@ -15,8 +15,8 @@
   height: 67%;
   background: #ff1515;
   border-radius: 50%;
-  animation-name: colorchange;
-  animation-duration: 10s;
+  /* animation-name: colorchange;
+  animation-duration: 10s; */
 }
 
 #head-copy {
@@ -111,8 +111,8 @@
   border-radius: 50%;
   z-index: 4;
   box-shadow: 0px 4px -0px #00000071;
-  animation-name: colorchange;
-  animation-duration: 7s;
+  /* animation-name: colorchange;
+  animation-duration: 7s; */
 }
 
 .shine {
@@ -147,8 +147,8 @@
   border-radius: 50%;
   background: #ff3232;
   box-shadow: 0px 0px 10px #ff0000;
-  animation-name: colorchange-eye;
-  animation-duration: 7s;
+  /* animation-name: colorchange-eye;
+  animation-duration: 7s; */
 
 }
 
@@ -173,8 +173,8 @@
   border-radius: 10px;
   z-index: 1;
   box-shadow: 0px 0px 10px #00000071;
-  animation-name: colorchange;
-  animation-duration: 7s;
+  /* animation-name: colorchange;
+  animation-duration: 7s; */
 }
 
 .nose2 {

@@ -9,6 +9,7 @@ let isGameOver = false;
 const maxBombCount = 20;
 let bombCounter = maxBombCount;
 var myIntervalID = 0;
+let numPlayerStarted = 0;
 
 let lastClickTime = -Infinity;
 let lastClickingClient = null;
@@ -72,18 +73,8 @@ webSocketServer.on('connection', (socket, req) => {
 
     console.log("PlayerCounter: " + clientSockets.size);
 
-    if (clientSockets.size >= 2) {
-      if (isGameOver == false) {
-        if (isPlaying == false) {
-          console.log("Start Game!");
-          myIntervalID = setInterval(updateInInterval, 1000);
-          isPlaying = true;
-        }
-      }
-    }
-
     // send
-    sendInfoToClient(socket);
+    sendInfoToClient();
   }
 
   ////////////////////////////////////////////////////////////////////////////////////
@@ -109,6 +100,14 @@ webSocketServer.on('connection', (socket, req) => {
           break;
         case 'resetRequest':
           resetGame();
+
+          break;
+
+        case 'startGameScreen':
+          numPlayerStarted++;
+          console.log(numPlayerStarted);
+
+          checkForGameStart();
 
           break;
       }
@@ -170,12 +169,15 @@ function updateInInterval() {
   if (bombCounter < 0) {
     gameOver("Timer up");
     bombCounter = 0;
+  } else {
+    sendBombSoundInfo("tick");
   }
 
   sendInfoToClient();
 }
 
 function gameOver(reason) {
+  sendBombSoundInfo("explosion");
   console.log("Game Over with Reason: " + reason);
   isPlaying = false;
   isGameOver = true;
@@ -205,12 +207,36 @@ function resetGame() {
   bombCounter = maxBombCount;
   clearInterval(myIntervalID);
   myIntervalID = 0;
+  numPlayerStarted = 0;
 
   lastClickTime = -Infinity;
   lastClickingClient = null;
 
   const messageObj = {
     selector: 'reset',
+  };
+  const str = JSON.stringify(messageObj);
+  for (let client of clientSockets) {
+    client.send(str);
+  }
+}
+
+function checkForGameStart() {
+  if (numPlayerStarted >= clientSockets.size) {
+    if (isGameOver == false) {
+      if (isPlaying == false) {
+        console.log("Start Game!");
+        myIntervalID = setInterval(updateInInterval, 1000);
+        isPlaying = true;
+      }
+    }
+  }
+}
+
+function sendBombSoundInfo(whichSound) {
+  const messageObj = {
+    selector: 'bombSound',
+    whichSound: whichSound
   };
   const str = JSON.stringify(messageObj);
   for (let client of clientSockets) {
