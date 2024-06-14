@@ -69,6 +69,7 @@ webSocketServer.on('connection', (socket, req) => {
 
     socket.on('close', () => {
       clientSockets.delete(socket);
+      //numPlayerStarted--;
     });
 
     console.log("PlayerCounter: " + clientSockets.size);
@@ -222,7 +223,7 @@ function resetGame() {
 }
 
 function checkForGameStart() {
-  if (numPlayerStarted >= clientSockets.size) {
+  if (numPlayerStarted >= 2) {
     if (isGameOver == false) {
       if (isPlaying == false) {
         console.log("Start Game!");
